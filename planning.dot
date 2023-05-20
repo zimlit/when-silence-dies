@@ -20,11 +20,10 @@ digraph {
     subgraph cluster_innocence_lost {
         label="Innocence Lost"
         il_10 [label="talk to aventus"]
-        il_200 [label="done"]
         il_5 [label="rumor"]
         il_20 [label="kill grelod"]
         il_30 [label="return to aventus"]
-        il_5 -> il_10 -> il_20 -> il_30 -> il_200
+        il_5 -> il_10 -> il_20 -> il_30
     }
 
     subgraph cluster_with_friends_like_these {
@@ -63,9 +62,62 @@ digraph {
         get_first_set:sw -> kill_narfi:w
         get_first_set:s -> kill_beitild:w
         get_first_set:e -> kill_ennodius_papius:w
-        {report_to_nazir e_report_to_nazir b_report_to_nazir} -> done
     }
 
-    il_200:e -> sleep:e
-    kill_cap:w -> get_first_set:w 
+    subgraph cluster_mourning_never_comes {
+        label="mourning never comes"
+        get_contract [label="get contract from astrid"]
+        talk_to_muiri [label="talk to muiri"]
+        kill_nilsine [label="kill nilsine (optional)"]
+        kill_alain [label="kill alain"]
+        return_to_muiri [label="return to muiri"]
+        killed_nilsine [label="killed nilsine", shape=diamond]
+        get_ring [label="recieve ring from muiri"]
+        report_to_astrid [label="report to astrid"]
+        respond_to_astrid [label="respond to astrid", shape=diamond]
+        favor_same [label="favor with astrid stays the same"]
+        favor_plus_1 [label="favor with astrid increases by 1"]
+
+        get_contract -> talk_to_muiri -> kill_alain
+        talk_to_muiri -> kill_nilsine
+        kill_nilsine -> kill_alain
+        kill_alain -> return_to_muiri
+        return_to_muiri -> killed_nilsine
+        killed_nilsine -> get_ring [label="yes"]
+        killed_nilsine -> report_to_astrid [label="no"]
+        get_ring -> report_to_astrid
+        report_to_astrid -> respond_to_astrid
+        respond_to_astrid -> favor_same [label="(remain silent)"]
+        respond_to_astrid -> favor_same [label="I did what had to be done. Nothing more."]
+        respond_to_astrid -> favor_plus_1 [label="I live only to serve. Hail Sithis!"]
+    }
+
+    subgraph cluster_whispers_in_the_dark {
+        label="Whispers in the Dark"
+
+        speak_to_astrid [label="speak to astrid"]
+        wd_respond_to_astrid [label="respond to astrid", shape=diamond]
+        wd_favor_same [label="favor with astrid stays the same"]
+        wd_favor_plus_1 [label="favor with astrid increases by 1"]
+        wd_favor_minus_1 [label="favor with astrid decreases by 1"]
+        hide [label="hide in the night mothers coffin"]
+        talk_to_cicero [label="talk to cicero"]
+        wd_speak_to_astrid [label="talk to astrid"]
+
+        speak_to_astrid -> wd_respond_to_astrid
+        wd_respond_to_astrid -> wd_favor_same [label="(remain silent)"]
+        wd_respond_to_astrid -> wd_favor_plus_1 [label="By Sithis, we must stop them!"]
+        wd_respond_to_astrid -> wd_favor_minus_1 [label="Astrid, you're being a bit... paranoid."]
+        {wd_favor_same wd_favor_minus_1 wd_favor_plus_1} -> hide
+        hide -> talk_to_cicero
+        talk_to_cicero -> wd_speak_to_astrid
+    }
+
+    il_30:e -> sleep:e
+    kill_cap:w -> get_first_set:w
+    report_to_nazir -> get_contract:w
+    b_report_to_nazir:w -> get_contract:w
+    e_report_to_nazir:se -> get_contract:e
+    favor_same -> speak_to_astrid:w
+    favor_plus_1 -> speak_to_astrid:e
 }
