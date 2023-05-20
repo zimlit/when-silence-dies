@@ -391,9 +391,9 @@
 </g>
 <!-- favor_plus_1&#45;&gt;speak_to_astrid -->
 <g id="edge40" class="edge">
-<title>favor_plus_1&#45;&gt;speak_to_astrid:e</title>
-<path fill="none" stroke="black" d="M384.23,-491.67C370.3,-466.62 340.58,-422.53 300.88,-415.47"/>
-<polygon fill="black" stroke="black" points="301.27,-411.9 291,-414.5 300.65,-418.87 301.27,-411.9"/>
+<title>favor_plus_1:e&#45;&gt;speak_to_astrid:e</title>
+<path fill="none" stroke="black" d="M488,-510C582.17,-510 401.62,-421.28 300.96,-414.87"/>
+<polygon fill="black" stroke="black" points="301.11,-411.33 291,-414.5 300.88,-418.33 301.11,-411.33"/>
 </g>
 <!-- wd_respond_to_astrid -->
 <g id="node27" class="node">

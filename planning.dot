@@ -119,5 +119,5 @@ digraph {
     b_report_to_nazir:w -> get_contract:w
     e_report_to_nazir:se -> get_contract:e
     favor_same -> speak_to_astrid:w
-    favor_plus_1 -> speak_to_astrid:e
+    favor_plus_1:e -> speak_to_astrid:e
 }
