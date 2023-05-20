@@ -19,10 +19,10 @@ digraph {
     node [shape=box]
     subgraph cluster_innocence_lost {
         label="Innocence Lost"
-        il_10 [label="talk to aventus"]
+        il_10 [label="talk to aventus arentino"]
         il_5 [label="rumor"]
         il_20 [label="kill grelod"]
-        il_30 [label="return to aventus"]
+        il_30 [label="return to aventus arentino"]
         il_5 -> il_10 -> il_20 -> il_30
     }
 
@@ -87,7 +87,7 @@ digraph {
         killed_nilsine -> report_to_astrid [label="no"]
         get_ring -> report_to_astrid
         report_to_astrid -> respond_to_astrid
-        respond_to_astrid -> favor_same [label="(remain silent)"]
+        respond_to_astrid -> favor_same [label="(Remain silent)"]
         respond_to_astrid -> favor_same [label="I did what had to be done. Nothing more."]
         respond_to_astrid -> favor_plus_1 [label="I live only to serve. Hail Sithis!"]
     }
@@ -105,12 +105,61 @@ digraph {
         wd_speak_to_astrid [label="talk to astrid"]
 
         speak_to_astrid -> wd_respond_to_astrid
-        wd_respond_to_astrid -> wd_favor_same [label="(remain silent)"]
+        wd_respond_to_astrid -> wd_favor_same [label="(Remain silent)"]
         wd_respond_to_astrid -> wd_favor_plus_1 [label="By Sithis, we must stop them!"]
         wd_respond_to_astrid -> wd_favor_minus_1 [label="Astrid, you're being a bit... paranoid."]
         {wd_favor_same wd_favor_minus_1 wd_favor_plus_1} -> hide
         hide -> talk_to_cicero
         talk_to_cicero -> wd_speak_to_astrid
+    }
+
+    subgraph cluster_second_nazir_set {
+        label="Second Nazir Set"
+        get_second_set [label="get second set of contracts from nazir"]
+        subgraph cluster_kill_lurbuk {
+            label="Kill Lurbuk"
+            kill_lurbuk [label="kill lurbuk"]
+            l_report_to_nazir [label="report to nazir"]
+            kill_lurbuk -> l_report_to_nazir
+        }
+
+        subgraph cluster_kill_hern {
+            label="Kill Hern"
+            kill_hern [label="kill hern"]
+            h_report_to_nazir [label="report to nazir"]
+            kill_hern -> h_report_to_nazir
+        }
+
+        get_second_set:e -> kill_hern:e
+        get_second_set:w -> kill_lurbuk:w
+    }
+
+    subgraph cluster_the_silence_has_been_broken {
+        label="The Silence Has Been Broken"
+
+        meet_amaund [label="meet Amaund Motierre inside Volunruud"]
+        bring_letter_to_astrid [label="take his letter and amulet to Astrid"]
+        meet_delvin [label="Take the amulet to Delvin Mallory"]
+        return_to_astrid [label="return to astrid"]
+
+        meet_amaund -> bring_letter_to_astrid -> meet_delvin -> return_to_astrid
+    }
+
+    subgraph cluster_bound_until_death {
+        label="Bound Until Death"
+
+        go_to_the_wedding [label="Go to Vittoria Vici's wedding"]
+        kill_vittoria [label="assinate Vittoria Vici"]
+        bud_report_to_astrid [label="report to astrid"]
+        bonus_test [label="killed vittoria vici during her speech" shape=diamond]
+        bonus [label="favor with astrid increases by 1"]
+        no_bonus [label="favor with astrid stays the same"]
+
+
+        go_to_the_wedding -> kill_vittoria -> bonus_test
+        bonus_test -> bonus [label="yes"]
+        bonus_test -> no_bonus [label="no"]
+        {bonus no_bonus} -> bud_report_to_astrid
     }
 
     il_30:e -> sleep:e
@@ -119,5 +168,9 @@ digraph {
     b_report_to_nazir:w -> get_contract:w
     e_report_to_nazir:se -> get_contract:e
     favor_same -> speak_to_astrid:w
-    favor_plus_1:e -> speak_to_astrid:e
+    favor_plus_1:e -> speak_to_astrid:nw
+    wd_speak_to_astrid:w -> get_second_set:e
+    l_report_to_nazir:w -> meet_amaund:w
+    h_report_to_nazir:e -> meet_amaund:e
+    return_to_astrid:e -> go_to_the_wedding:e
 }
