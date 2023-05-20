@@ -1,0 +1,54 @@
+digraph {
+    node [shape=box]
+    subgraph cluster_innocence_lost {
+        label="Innocence Lost"
+        il_10 [label="talk to aventus"]
+        il_200 [label="done"]
+        il_5 [label="rumor"]
+        il_20 [label="kill grelod"]
+        il_30 [label="return to aventus"]
+        il_5 -> il_10 -> il_20 -> il_30 -> il_200
+    }
+
+    subgraph cluster_with_friends_like_these {
+        label="With Friends Like These"
+        sleep [label="sleep and be kidnapped"]
+        kill_cap [label="kill captive(s)"]
+        kill_astrid [label="kill astrid"]
+        sleep -> {kill_cap kill_astrid}
+    }
+
+    subgraph cluster_first_nazir_set {
+        label="First Nazir Set"
+        get_first_set [label="get first set of contracts from nazir"]
+
+        subgraph cluster_kill_narfi {
+            label="Kill Narfi"
+            kill_narfi [label="kill narfi"]
+            report_to_nazir [label="report to nazir"]
+            kill_narfi -> report_to_nazir
+        }
+        
+        subgraph cluster_kill_beitild {
+            label="Kill Beitild"
+            kill_beitild [label="kill beitild"]
+            b_report_to_nazir [label="report to nazir"]
+            kill_beitild -> b_report_to_nazir
+        }
+
+        subgraph cluster_kill_ennodius_papius {
+            label="Kill Ennodius Papius"
+            kill_ennodius_papius [label="kill ennodius papius"]
+            e_report_to_nazir [label="report to nazir"]
+            kill_ennodius_papius -> e_report_to_nazir
+        }
+
+        get_first_set:sw -> kill_narfi:w
+        get_first_set:s -> kill_beitild:w
+        get_first_set:e -> kill_ennodius_papius:w
+        {report_to_nazir e_report_to_nazir b_report_to_nazir} -> done
+    }
+
+    il_200:e -> sleep:e
+    kill_cap:w -> get_first_set:w 
+}
